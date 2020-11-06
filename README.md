@@ -3,10 +3,10 @@
 This is an example of building a Spansh-to-English sequence-to-sequence
 neural translation model using [Marian NMT](https://marian-nmt.github.io/).
 
-This code is based on the 
-[`training-basics` example](https://github.com/marian-nmt/marian-examples/tree/master/training-basics) 
+This code is based on the
+[`training-basics` example](https://github.com/marian-nmt/marian-examples/tree/master/training-basics)
 included with Marian which is in turn adapted from the Romanian-English
-sample at https://github.com/rsennrich/wmt16-scripts. 
+sample at https://github.com/rsennrich/wmt16-scripts.
 
 This is a great place to start if you want to play around with building
 your own Google-Translate-style language translation model.
@@ -17,7 +17,7 @@ Instructions for Ubuntu 18.04 with CUDA/cuDNN installed:
 
 ```bash
 # Install newer CMake via 3rd-party repo
-wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | 
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null |
 sudo apt-key add -
 sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
 sudo apt-get install cmake git build-essential libboost-all-dev
@@ -40,7 +40,7 @@ make
 
 # Download this Repo
 cd ~/marian/marian-examples
-git clone https://github.com/ageitgey/spanish-to-english-translation
+git clone https://github.com/lemon-bean/spanish-to-english-translation
 
 # Install the Python modules
 cd spanish-to-english-translation
