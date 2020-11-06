@@ -1,8 +1,10 @@
 #!/bin/bash -v
 
 MARIAN=../../build
+EXAMPLE_TOOLS=../tools # added - by Frank W
 
 # if we are in WSL, we need to add '.exe' to the tool names
+# WSL - Windows Subsystem for Linux - by Frank W
 if [ -e "/bin/wslpath" ]
 then
     EXT=.exe
@@ -14,7 +16,13 @@ MARIAN_VOCAB=$MARIAN/marian-vocab$EXT
 MARIAN_SCORER=$MARIAN/marian-scorer$EXT
 
 # set chosen gpus
+# the default GPU number is 0 - added by Frank W
 GPUS=0
+# command start - by Frank W
+# if the number of positional parameters is greater than 0
+# $# is the number of positional paramters
+# $@ is the whole positional parameter(s)
+# command end - by Frank W
 if [ $# -ne 0 ]
 then
     GPUS=$@
@@ -27,15 +35,20 @@ then
     exit 1
 fi
 
-if [ ! -e ../tools/moses-scripts ] || [ ! -e ../tools/subword-nmt ]
+# checking for preprocessing tools - commented by Frank W
+# modify start - by Frank W
+# original: if [ ! -e ../tools/moses-scripts ] || [ ! -e ../tools/subword-nmt ]
+if [ ! -e $EXAMPLE_TOOLS/moses-scripts ] || [ ! -e $EXAMPLE_TOOLS/subword-nmt ]
+# modify end - by Frank W
 then
     echo "missing tools in ../tools, you need to download them first"
     exit 1
 fi
 
-if [ ! -e "data/corpus.en" ]
+if [ ! -e "data/corpus-ordered.en" ]
 then
     ./scripts/download-files-spanish.sh
+    ./scripts/prepare_files.sh
 fi
 
 mkdir -p model
