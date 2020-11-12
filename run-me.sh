@@ -45,10 +45,12 @@ then
     exit 1
 fi
 
-if [ ! -e "data/corpus-ordered.en" ]
-then
+if [ ! -d "data/source_files" ]; then
     ./scripts/download-files-spanish.sh
-    ./scripts/prepare_files.sh
+fi
+
+if [ ! -e "data/corpus.en" ]; then
+	./scripts/prepare_files.sh
 fi
 
 mkdir -p model
@@ -64,12 +66,13 @@ if [ ! -e "model/model.npz.best-translation.npz" ]
 then
     $MARIAN_TRAIN \
         --devices $GPUS \
+		--fp16 \
         --type amun \
         --model model/model.npz \
         --train-sets data/corpus.bpe.es data/corpus.bpe.en \
         --vocabs model/vocab.es.yml model/vocab.en.yml \
         --dim-vocabs 100000 100000 \
-        --mini-batch-fit -w 15000 \
+        --mini-batch-fit -w 3500 \
         --layer-normalization --dropout-rnn 0.2 --dropout-src 0.1 --dropout-trg 0.1 \
         --early-stopping 5 \
         --valid-freq 10000 --save-freq 10000 --disp-freq 1000 \
